@@ -11,7 +11,7 @@ import {
     ActivityIndicator,
 } from 'react-native';
 
-// Module Imports (Pertemuan 1 & 2)
+
 import { ITEMS_DATA } from '../data/itemsData';
 import Card from '../components/Card';
 import Button from '../components/Button';
@@ -19,30 +19,29 @@ import SectionHeader from '../components/SectionHeader';
 import SearchBar from '../components/SearchBar';
 
 export default function CatalogScreen() {
-    // Pertemuan 1: useState Hook untuk State Management
+
     const [selectedCategory, setSelectedCategory] = useState('Semua');
     const [searchQuery, setSearchQuery] = useState('');
     const [isLoading, setIsLoading] = useState(true);
 
-    // Pertemuan 1: useEffect Hook & Lifecycle Management
-    // 1. Mounting Phase: Mengatur efek awal saat komponen pertama kali dirender
+
     useEffect(() => {
         const timer = setTimeout(() => {
-            setIsLoading(false); // Mengubah state loading setelah 1 detik
+            setIsLoading(false);
         }, 1000);
 
-        // Unmounting Phase: Cleanup function untuk membersihkan timer
+
         return () => clearTimeout(timer);
     }, []);
 
-    // 2. Updating Phase: Efek samping yang berjalan setiap kali pencarian atau kategori berubah
+
     useEffect(() => {
         console.log(`[Lifecycle] Kategori: ${selectedCategory} | Kata Kunci: ${searchQuery}`);
     }, [selectedCategory, searchQuery]);
 
     const categories = ['Semua', 'Elektronik', 'Pakaian', 'Aksesori'];
 
-    // Filter Data Gabungan (Kategori & Pencarian Teks)
+
     const filteredData = ITEMS_DATA.filter((item) => {
         const matchesCategory =
             selectedCategory === 'Semua' || item.category === selectedCategory;
@@ -53,7 +52,7 @@ export default function CatalogScreen() {
     });
 
     const handleBuy = (item) => {
-        // ES6: Template Literals (Pertemuan 2)
+
         Alert.alert('Transaksi', `Anda memilih untuk membeli: ${item.title}`);
     };
 
@@ -94,13 +93,13 @@ export default function CatalogScreen() {
                                 title="SmartCatalog App"
                                 subtitle="Temukan produk pilihan terbaik Anda di sini"
                             />
-                            {/* Integrasi TextInput via SearchBar (Pertemuan 1) */}
+
                             <SearchBar
                                 value={searchQuery}
                                 onChangeText={setSearchQuery}
                                 placeholder="Cari nama produk..."
                             />
-                            {/* Filter Kategori */}
+
                             <ScrollView
                                 horizontal
                                 showsHorizontalScrollIndicator={false}
